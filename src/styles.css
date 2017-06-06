@@ -1,0 +1,112 @@
+/* You can add global styles to this file, and also import other style files */
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+
+.left {
+  float: left;
+}
+
+.blueTeam  {
+  background-color: #5a3ef7;
+}
+
+.redTeam  {
+  background-color: rgb(193, 91, 95);
+}
+
+.specTeam {
+  background-color: white;
+  color: black;
+}
+
+.textRight {
+  text-align: right;
+}
+
+.content {
+  position: absolute;
+  height: 100%;
+
+}
+
+.leftPanel {
+  float: left;
+  width: 130px;
+  position: relative;
+  height: 100%;
+  background-color: #333333;
+  margin: 10px;
+}
+
+.centerPanel {
+  float: left;
+  position: relative;
+  margin: 10px;
+  width: 920px;
+}
+
+#top-menu {
+  background: linear-gradient(to bottom right, #272727, #e4e4e4);
+}
+
+body {
+  background-color: #5d5d5d;
+  font-family: monospace;
+  color: white;
+}
+
+thead tr th {
+  text-align: center;
+}
+
+.card {
+  background-color: #2d2d2d;
+}
+
+.panel.panel-primary {
+  background-color: #4c4c4c;
+  color: white;
+}
+
+button {
+  color: black;
+}
+
+.panel-heading {
+  background-color: #2d2d2d !important;
+}
+
+.panel-primary>.panel-heading {
+  background-image: linear-gradient(to bottom,#333333 0,#212223 100%) !important;
+}
+
+.greenBadge {
+  color: #76ff76;
+}
+
+.bronzeBadge {
+  color: #e8ad00;
+}
+
+.goldBadge {
+  color: yellow;
+}
+
+.silverBadge {
+  color: #c7c7c7;
+}
+
+
+.overflow-ellipsis-small {
+  width: 100px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* CSS override default 0.75 padding */
+.table td {
+  padding-top: 0.25rem !important;
+  padding-bottom: 0.25rem !important;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}

@@ -1,0 +1,105 @@
+<!-- LOBBY only  -->
+<div *ngIf="gameinfo.IsLobbyServer">
+
+
+</div>
+
+<div class="card" *ngFor="let gameInstance of gameinfo.GameInstances;" style="top: 60px;">
+  <div class="card-header" role="tab" id="headingOne">
+    <h5 class="mb-0">
+      <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+        {{gameInstance.ServerName}} - {{gameInstance.MatchState}} - {{gameInstance.NumPlayers}} / {{gameInstance.MaxPlayers}} players(s)
+      </a>
+    </h5>
+  </div>
+
+  <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
+  <div class="row">
+    <!-- MAP INFO -->
+    <div class="card col-sm-6 col-md-3">
+      <img class="rounded" src="/assets/img/maps/{{gameInstance.Map.MapAssetName}}.png" alt="Card image cap">
+      <div class="card-block">
+        <h4 class="card-title">{{gameInstance.Map.MapAssetName}}</h4>
+        <h6 class="card-title">by {{gameInstance.Map.Author}}</h6>
+
+        <form>
+          <div class="form-group row">
+            <label class="col-2 col-form-label" for="mapSelect-{{gameInstance.ServerInstanceGUID}}">Map:</label>
+            <select id="mapSelect-{{gameInstance.ServerInstanceGUID}}" ngModel="gameInstance.Map">
+              <option *ngFor="let map of gameInstance.MapList">{{map.MapAssetName}}</option>
+            </select>
+            <button type="submit" class="btn btn-primary">Go!</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="card col-md-6">
+    <label>Chat:</label>
+      <textarea rows="8">
+
+      </textarea>
+     <div class="input-group">
+        <div class="input-group-btn">
+          <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Chat
+          </button>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="#">Action</a>
+            <a class="dropdown-item" href="#">Another action</a>
+            <a class="dropdown-item" href="#">Something else here</a>
+            <div role="separator" class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">Separated link</a>
+          </div>
+        </div>
+        <input type="text" class="form-control" aria-label="Text input with dropdown button">
+      </div>
+    </div>
+  </div>
+  <div>
+    <table class="table">
+      <thead>
+      <tr>
+        <th>Name</th>
+        <th>Id</th>
+        <th *ngIf="gameInstance.IsDataFromDedi">IP</th>
+        <th>Score</th>
+        <th *ngIf="gameInstance.IsDataFromDedi">K</th>
+        <th *ngIf="gameInstance.IsDataFromDedi">D</th>
+        <th *ngIf="gameInstance.IsDataFromDedi" alt="Damage Done">Dmg</th>
+        <th *ngIf="gameInstance.IsDataFromDedi">Ping</th>
+        <th *ngIf="gameInstance.IsDataFromDedi">Rank</th>
+        <th>XP</th>
+        <th>Spec?</th>
+        <th>Action</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let player of gameInstance.Players"
+          [ngClass]="{ 'redTeam': (player.TeamNum == 0), 'blueTeam': (player.TeamNum == 1), 'specTeam': player.bIsSpectator }"
+      >
+        <td>{{player.PlayerName}}</td>
+        <td><p ng-if="!player.bIsABot" class="overflow-ellipsis-small">{{player.UniqueId}}</p></td>
+        <td>{{player.SavedNetworkAddress}}</td>
+        <td class="textRight">{{player.PlayerScore}}</td>
+        <td class="textRight" *ngIf="gameInstance.IsDataFromDedi">{{player.Kills}}</td>
+        <td class="textRight" *ngIf="gameInstance.IsDataFromDedi">{{player.Deaths}}</td>
+        <td class="textRight" *ngIf="gameInstance.IsDataFromDedi">{{player.DamageDone}}</td>
+        <th class="textRight" *ngIf="gameInstance.IsDataFromDedi"><span *ngIf="!player.bIsABot">{{player.Ping}}</span></th>
+        <td class="textRight" *ngIf="gameInstance.IsDataFromDedi" [ngClass]="{ 'greenBadge': (player.BadgeLevel == 0), 'bronzeBadge': (player.BadgeLevel == 1), 'silverBadge': (player.BadgeLevel == 2), 'goldBadge': (player.BadgeLevel == 3)}">
+          <!-- levels starts at 0 but always displayed +1 in ut -->
+          {{player.BadgeSubLevel + 1}}
+        </td>
+        <td class="textRight"><span *ngIf="!player.bIsABot">{{player.XPLevel}}</span></td>
+        <td><span *ngIf="player.bIsSpectator">X</span></td>
+        <td>
+          <button ng-click="kickPlayer(lobbyInstance, player, false, false)" title="Kicks the player">K</button>
+          <button ng-click="kickPlayer(lobbyInstance, player, true, false)" title="Bans the player">B</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  </div>
+</div>
+
